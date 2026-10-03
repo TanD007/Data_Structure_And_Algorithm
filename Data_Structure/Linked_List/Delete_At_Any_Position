@@ -1,0 +1,27 @@
+void delete_at_position(Node *&head, int position)
+
+{
+
+ 
+
+ Node *temp = head;
+
+ 
+
+ for (int i = 1; i <= position - 1; i++) // আগের লজিক ব্যবহার করে tmp কে যে index এ Node ডিলিট করতে হবে ঐ পজিশনে নিয়ে গেলাম
+
+ {
+
+ temp = temp->next;
+
+ }
+
+ Node* delete_node = temp->next; // temp->next কে delete_node এ স্টোর করে রাখলাম যাতে পরবর্তীতে delete করতে পারি। 
+
+ temp->next = temp->next->next; // temp->next এ যে Node ডিলিট করতে হবে তার পরবর্তী Node রেখে দিলাম 
+
+ delete delete_node; // ঐ নোড ডিলিট করে দিলাম 
+
+}
+
+

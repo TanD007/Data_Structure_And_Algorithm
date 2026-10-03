@@ -1,0 +1,120 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Node {
+public:
+	int val;
+	Node* next;
+	Node* prev;
+	Node(int val){
+		this->val =val;
+		this->next = NULL;
+		this->prev = NULL;
+	}
+};
+void insertAtHead(Node* &head,Node* &tail, int val){
+	Node* newnode = new Node(val);
+	if(head ==NULL){
+		head = newnode;
+		tail = newnode;
+		return;
+	}
+	newnode->next = head;
+	head->prev = newnode;
+	head = newnode;
+}
+ void insertAtTail(Node* &head,Node* &tail, int val){
+	Node* newnode = new Node(val);
+	if(tail == NULL){
+		head = newnode;
+		tail = newnode;
+		return;
+	}
+	tail->next = newnode;
+	newnode->prev = tail;
+	tail = newnode;
+}
+void insert_at_any_position(Node* head,int idx, int val){
+	Node* newNode = new Node(val);
+	Node* tmp = head;
+	for (int i = 1; i < idx; i++)
+	{
+		tmp = tmp->next;
+	}
+	newNode->next = tmp->next;
+	tmp->next->prev = newNode;
+	tmp->next = newNode;
+	newNode->prev = tmp;
+		
+}
+void deleteAtHead(Node* &head,Node* &tail){
+	if(head == NULL){
+		return;
+	}
+	Node* temp = head;
+	head = head->next;
+	if(head != NULL){
+		head->prev = NULL;
+	}
+	else{
+		tail = NULL;
+	}
+	delete temp;
+}
+void deleteAtTail(Node* &head,Node* &tail){
+	Node *temp = tail;
+	tail = tail->prev;
+	delete temp;
+	if(tail == NULL){
+		head = NULL;
+		return;
+	}
+	tail->next = NULL;
+}
+void delete_at_any_position(Node* head,int idx){
+	Node* tmp = head;
+	for (int i = 1; i < idx; i++)
+	{
+		tmp = tmp->next;
+	}
+	Node* delNode = tmp->next;
+	tmp->next = tmp->next->next;
+	tmp->next->prev = tmp;
+	delete delNode;
+}
+void printLinkedList(Node* head){
+	Node* temp = head;
+	while(temp != NULL){
+		cout << temp->val << " ";
+		temp = temp->next;
+	}
+	cout << endl;
+}
+int main() {
+	Node* head = NULL;
+	Node* tail = NULL;
+	int val;
+
+	while(true){
+		cin >> val;
+		if(val == -1){
+			break;
+		}
+		insertAtTail(head, tail, val);
+	}
+
+	printLinkedList(head);
+	insertAtHead(head, tail, 100);
+	printLinkedList(head);
+	insertAtTail(head, tail, 200);
+	printLinkedList(head);
+	insert_at_any_position(head, 2, 500);
+	printLinkedList(head);
+	deleteAtHead(head, tail);
+
+	printLinkedList(head);	
+	deleteAtTail(head, tail);
+	printLinkedList(head);
+	delete_at_any_position(head, 1);
+	printLinkedList(head);
+	return 0;
+}

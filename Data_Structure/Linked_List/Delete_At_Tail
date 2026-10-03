@@ -1,0 +1,15 @@
+void delete_at_tail(Node* &head) {
+    Node* tmp = head;
+    if (head == NULL) return; // empty list 
+    if (head->next == NULL) { // Only one element so head will be set to NULL
+        delete head;
+        head = NULL;
+        return;
+    }
+    while(tmp->next->next != NULL) {
+        tmp = tmp->next;
+    }
+    Node* deleteNode = tmp->next;
+    tmp->next = NULL;
+    delete deleteNode;
+}

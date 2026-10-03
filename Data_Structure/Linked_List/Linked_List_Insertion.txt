@@ -1,0 +1,117 @@
+void insert_at_head(Node *&head, int value){
+
+ Node *newNode = new Node(value); // নতুন Node বানালাম
+
+ newNode->next = head; // নতুন Node এর next এ বর্তমান head কে রেখে দিলাম
+
+ head = newNode; // বর্তমান head কে মুভ করে নতুন Node এ shift করলাম 
+
+}
+
+
+
+
+
+
+
+void insert_at_tail(Node *&head, int val) // reference সহ পয়েন্টার পাস করছি যাতে করে main এর head পয়েন্টার change হয়ে যায়
+{
+
+ Node *newNode = new Node(val); // নতুন একটি Node ক্রিয়েট করলাম
+
+ // Important : Exception Handling 
+
+  if (head == NULL) // যদি লিঙ্কড লিস্ট খালি থাকে তবে এই নোড কে head বানিয়ে দিলাম
+  {
+    head = newNode;
+    return;
+  }
+
+ Node *temp = head; // লুপের জন্য temp পয়েন্টার নিলাম
+
+ while (temp->next != NULL) // যতক্ষন tail এ আসছি না , ততক্ষন লুপ চলবে
+ {
+    temp = temp->next; // প্রতি লুপে temp কে ডানে অর্থাৎ পরবর্তী Node এ shift করছি
+ }
+
+   temp->next = newNode; // tail এর next পয়েন্টার এ নতুন Node এর এড্রেস রেখে দিচ্ছি এবং এর মাধ্যমে Node টি লিঙ্কড লিস্টে এড হয়ে যাবে। 
+
+}
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int val;
+    Node *next;
+    Node(int val) {
+        this->val = val;
+        this->next = NULL;
+    }
+};
+
+// Insert at tail optimized version
+void insert_at_tail(Node* &head, Node* &tail, int val) {
+    Node* newnode = new Node(val);
+
+    if (head == NULL) { // Head NULL হলে নতুন নোডটিই head/tail হবে।
+        head = newnode;
+        tail = newnode;
+        return;
+    }
+
+    // নতুন নোডকে বর্তমান tail এর নেক্সট এ যুক্ত করা এবং tail কে update করা হচ্ছে। 
+    tail->next = newnode;
+    tail = newnode;
+}
+
+
+int main()
+{
+    fastIO();
+    Node* head = NULL;
+    Node* tail = NULL;
+    
+    insert_at_tail(head, tail, 10);
+    insert_at_tail(head, tail, 20);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+void insert_at_position(Node *&head, int index, int value)
+{
+ Node *newNode = new Node(value); // নতুন Node বানিয়ে নিলাম 
+
+ Node *temp = head; // temp পয়েন্টার এ head রেখে দিলাম 
+
+ for (int i = 1; i <= index - 1; i++)
+ {
+   temp = temp->next;
+ }
+
+ // এখানে temp এ যে index এ Node insert করতে হবে তার previous Node আছে
+
+ // temp->next এ আছে তার পরের Node 
+
+ newNode->next = temp->next; // New_node এর next পয়েন্টার এ next_node কে রেখে দিলাম
+
+ temp->next = newNode; //Previous_Node এর next পয়েন্টার এ new_node এর এড্রেস রেখে দিলাম
+
+}
+
+

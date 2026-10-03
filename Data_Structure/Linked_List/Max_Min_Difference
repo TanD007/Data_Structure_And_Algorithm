@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Node {
+public:
+    int val;
+    Node* next;
+    Node(int val){
+        this->val =val;
+        this->next = NULL;
+    }
+};
+void insertAtTail(Node* &head,Node* &tail, int val){
+    Node* newNode = new Node(val);
+    if(head == NULL){
+        head = newNode;
+        tail = newNode;
+        return;
+    }
+    tail->next = newNode;
+    tail = newNode;
+}
+long long max_min_difference(Node* head){
+    long long maxVal = LLONG_MIN;
+    long long minVal = LLONG_MAX;
+    Node* temp = head;
+    while(temp != NULL){
+        maxVal = max(maxVal, (long long)temp->val);
+        minVal = min(minVal, (long long)temp->val);
+        temp = temp->next;
+    }
+    return maxVal - minVal;
+}
+
+
+int main() {
+    Node* head = NULL;
+    Node* tail = NULL;
+    int x;
+    while (cin >> x && x != -1) {
+        insertAtTail(head, tail, x);
+    }
+    long long result = max_min_difference(head);
+    cout << result << endl;
+
+
+    return 0;
+}

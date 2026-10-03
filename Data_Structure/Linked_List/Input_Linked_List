@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// একটি linked list node তৈরির class
+class Node {
+public:
+    int val;       // Node-এর value রাখবে
+    Node* next;    // পরবর্তী node-এর address রাখবে
+
+    // Constructor: নতুন node তৈরি করার জন্য
+    Node(int val) {
+        this->val = val;       // দেওয়া value node-এ রাখছি
+        this->next = NULL;     // শুরুতে কোনো next node নেই
+    }
+};
+
+// Linked list-এর শেষে নতুন node যোগ করার function
+void insert_at_tail(Node* &head, Node* &tail, int val) {
+    // নতুন একটি node তৈরি করছি
+    Node* newNode = new Node(val);
+
+    // যদি list খালি থাকে
+    if (head == NULL) {
+        head = newNode;  // নতুন node-ই প্রথম node
+        tail = newNode;  // নতুন node-ই শেষ node
+        return;
+    }
+
+    // বর্তমান শেষ node-এর সাথে নতুন node যুক্ত করছি
+    tail->next = newNode;
+
+    // Tail-কে নতুন শেষ node-এ নিয়ে যাচ্ছি
+    tail = newNode;
+}
+
+// সম্পূর্ণ linked list print করার function
+void print(Node* head) {
+    Node* temp = head;  // Traversal-এর জন্য temporary pointer
+
+    // যতক্ষণ node পাওয়া যায়
+    while (temp != NULL) {
+        cout << temp->val << " "; // বর্তমান node-এর value print করছি
+        temp = temp->next;        // পরবর্তী node-এ যাচ্ছি
+    }
+
+    cout << endl;
+}
+
+int main() {
+    Node* head = NULL; // শুরুতে linked list খালি
+    Node* tail = NULL; // শুরুতে কোনো শেষ node নেই
+    int x;
+
+    // -1 না পাওয়া পর্যন্ত input নেওয়া হবে
+    while (true) {
+        cin >> x;
+
+        // -1 পেলে input নেওয়া বন্ধ
+        if (x == -1) {
+            break;
+        }
+
+        // Input value linked list-এর শেষে যোগ করছি
+        insert_at_tail(head, tail, x);
+    }
+
+    // তৈরি হওয়া linked list print করছি
+    print(head);
+
+    return 0;
+}

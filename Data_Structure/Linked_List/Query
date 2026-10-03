@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Node {
+public:
+    int val;
+    Node* next;
+    Node(int val){
+        this->val =val;
+        this->next = NULL;
+    }
+};
+void insertAtHead(Node* &head, Node* &tail, int val){
+    Node* newNode = new Node(val);
+    if(head == NULL){
+        head = newNode;
+        tail = newNode;
+        return;
+    }
+    newNode->next = head;
+    head = newNode;
+}
+void insertAtTail(Node* &head,Node* &tail, int val){
+    Node* newNode = new Node(val);
+    if(head == NULL){
+        head = newNode;
+        tail = newNode;
+        return;
+    }
+    tail->next = newNode;
+    tail = newNode;
+}
+void delete_at_position(Node* &head, Node* &tail, int pos) {
+    if (head == NULL) return;
+
+    if (pos == 0) {
+        Node* deleteNode = head;
+        head = head->next;
+
+        if (head == NULL) tail = NULL;
+
+        delete deleteNode;
+        return;
+    }
+
+    Node* temp = head;
+
+    for (int i = 1; i < pos && temp->next != NULL; i++) {
+        temp = temp->next;
+    }
+
+    if (temp->next == NULL) return;
+
+    Node* deleteNode = temp->next;
+    temp->next = deleteNode->next;
+
+    if (deleteNode == tail) tail = temp;
+
+    delete deleteNode;
+}
+void print(Node* head) {
+    Node* temp = head; 
+
+    while (temp != NULL) {
+        cout << temp->val << " "; 
+        temp = temp->next;        
+    }
+
+    cout << endl;
+}
+
+
+int main() {
+   int q;
+   cin >> q;
+   Node* head = NULL;
+   Node* tail = NULL;
+   while(q--){
+    int x;
+    cin >> x;
+    if(x == 0){
+        int val;
+        cin >> val;
+        insertAtHead(head,tail,val);
+    }
+    else if(x == 1){
+        int val;
+        cin >> val;
+        insertAtTail(head,tail,val);
+    }
+    else if(x == 2){
+        int pos;
+        cin >> pos;
+        delete_at_position(head,tail,pos );
+    }
+
+    print(head);
+   }
+    
+}

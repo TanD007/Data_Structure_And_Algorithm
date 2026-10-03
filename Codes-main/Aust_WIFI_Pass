@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n,k;
+    string s;
+    cin >> n >> k;
+    cin >> s;
+    int rmv = n-k;
+    string a;
+    for(char c : s) {
+        while(!a.empty() && a.back() > c && rmv>0) {
+            a.pop_back();
+            rmv--;
+        }
+        a.push_back(c);
+    }
+    while(rmv--) {
+        a.pop_back();
+    }
+    cout << a << endl;
+
+
+    return 0;
+}
